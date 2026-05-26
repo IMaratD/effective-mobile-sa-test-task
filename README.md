@@ -5,18 +5,22 @@
 ## Repository Structure
 
 ### task-1-bpmn
-- BPMN-модель процесса выдачи оборудования
-- Комментарии и выявленные проблемы процесса
+- Equipment process diagram (.drawio)
+- Equipment process image (.png)
+- Process notes and identified issues
 
 ### task-2-marketplace
 - User Story
 - Use Cases
-- Process Diagram
+- Marketplace process diagram (.drawio)
+- Marketplace process image (.png)
 
 ### task-3-api
 - REST API specification
 - OpenAPI schema
-- Registration backend flow
+- Backend registration flow description
+- Registration process diagram (.drawio)
+- Registration process image (.png)
 
 ## Tools Used
 

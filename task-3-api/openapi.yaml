@@ -1,0 +1,155 @@
+openapi: 3.0.3
+
+info:
+  title: User Registration API
+  version: 1.0.0
+  description: API for user registration
+
+paths:
+  /api/v1/auth/register:
+    post:
+      summary: Register new user
+      description: Creates a new user account
+      tags:
+        - Authentication
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - firstName
+                - lastName
+                - username
+                - password
+                - captchaToken
+
+              properties:
+                firstName:
+                  type: string
+                  minLength: 2
+                  maxLength: 50
+                  example: Ivan
+
+                lastName:
+                  type: string
+                  minLength: 2
+                  maxLength: 50
+                  example: Ivanov
+
+                username:
+                  type: string
+                  minLength: 3
+                  maxLength: 30
+                  example: ivan123
+
+                password:
+                  type: string
+                  minLength: 8
+                  example: StrongPass123!
+
+                captchaToken:
+                  type: string
+                  example: captcha-response-token
+
+      responses:
+        '201':
+          description: User successfully registered
+
+          content:
+            application/json:
+              schema:
+                type: object
+
+                properties:
+                  userId:
+                    type: string
+                    format: uuid
+                    example: 550e8400-e29b-41d4-a716-446655440000
+
+                  username:
+                    type: string
+                    example: ivan123
+
+                  status:
+                    type: string
+                    example: created
+
+                  createdAt:
+                    type: string
+                    format: date-time
+                    example: 2026-05-26T12:00:00Z
+
+                  message:
+                    type: string
+                    example: User successfully registered
+
+        '400':
+          description: Validation error or invalid captcha
+
+          content:
+            application/json:
+              schema:
+                type: object
+
+                properties:
+                  errorCode:
+                    type: string
+                    example: VALIDATION_ERROR
+
+                  message:
+                    type: string
+                    example: Password does not meet security requirements
+
+        '409':
+          description: Username already exists
+
+          content:
+            application/json:
+              schema:
+                type: object
+
+                properties:
+                  errorCode:
+                    type: string
+                    example: USERNAME_ALREADY_EXISTS
+
+                  message:
+                    type: string
+                    example: Username already exists
+
+        '429':
+          description: Too many registration attempts
+
+          content:
+            application/json:
+              schema:
+                type: object
+
+                properties:
+                  errorCode:
+                    type: string
+                    example: TOO_MANY_REQUESTS
+
+                  message:
+                    type: string
+                    example: Too many registration attempts. Please try again later.
+
+        '500':
+          description: Internal server error
+
+          content:
+            application/json:
+              schema:
+                type: object
+
+                properties:
+                  errorCode:
+                    type: string
+                    example: INTERNAL_SERVER_ERROR
+
+                  message:
+                    type: string
+                    example: Unexpected backend error
